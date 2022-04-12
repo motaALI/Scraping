@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
+import os
 
 basic_url = 'https://books.toscrape.com' # Books to Scrape basic url
 product_url= f'{basic_url}/catalogue/' # Basic product url
@@ -10,6 +11,9 @@ product_url= f'{basic_url}/catalogue/' # Basic product url
 """ Product image download"""
 def download_images(image_url,title):
     SAVE_FOLDER = 'images'
+    # Look for a images repo/folder if not exists create it
+    if not os.path.exists(SAVE_FOLDER):
+        os.mkdir(SAVE_FOLDER)
     pattern = r'[^A-Za-z0-9]+'
     # title refactoring to be a valid image name
     title = re.sub(pattern, '', title)
